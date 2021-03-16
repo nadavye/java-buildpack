@@ -116,40 +116,40 @@ module JavaBuildpack
 
       def download_uri(full_url)
         announce("Downloading Sealights Agent from '#{full_url}'")
-        # begin
-        #   credentials = @application.services.find_service(FILTER, TOKEN)['credentials']
-        #   token = credentials[TOKEN]
-        #   uri = URI.parse(full_url)
-        #   ENV['http_proxy'] = 'http://127.0.0.1:8888' if credentials.key? 'proxy'
-        #
-        #   response = Net::HTTP.start(uri.host, uri.port,
-        #                              use_ssl: uri.scheme == 'https',
-        #                              verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
-        #     request = Net::HTTP::Get.new uri
-        #     auth = "Bearer #{token}"
-        #     @logger.info { auth }
-        #     request['Authorization'] = auth
-        #     request['accept'] = 'application/json'
-        #
-        #     http.request request # Net::HTTPResponse object
-        #   end
-        # end
-        # case response
-        # when Net::HTTPSuccess
-        #   announce('Agent was downloaded successfully.')
-        #   open('sealights-java.zip', 'wb') do |file|
-        #     file.write(response.body)
-        #   end
-        #   true
-        # when Net::HTTPRedirection
-        #   location = response['location']
-        #   @logger.info { "redirected to #{location}" }
-        #   downloadUri(location)
-        # else
-        #   announce('Failed to download the agent.')
-        #   @logger.error { "Could not retrieve #{full_url}.  Code: #{response.code} Message: #{response.message}" }
-        #   false
-        # end
+        begin
+          credentials = @application.services.find_service(FILTER, TOKEN)['credentials']
+          token = credentials[TOKEN]
+          uri = URI.parse(full_url)
+          ENV['http_proxy'] = 'http://127.0.0.1:8888' if credentials.key? 'proxy'
+
+          response = Net::HTTP.start(uri.host, uri.port,
+                                     use_ssl: uri.scheme == 'https',
+                                     verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
+            request = Net::HTTP::Get.new uri
+            auth = "Bearer #{token}"
+            @logger.info { auth }
+            request['Authorization'] = auth
+            request['accept'] = 'application/json'
+
+            http.request request # Net::HTTPResponse object
+          end
+        end
+        case response
+        when Net::HTTPSuccess
+          announce('Agent was downloaded successfully.')
+          open('sealights-java.zip', 'wb') do |file|
+            file.write(response.body)
+          end
+          true
+        when Net::HTTPRedirection
+          location = response['location']
+          @logger.info { "redirected to #{location}" }
+          download_uri(location)
+        else
+          announce('Failed to download the agent.')
+          @logger.error { "Could not retrieve #{full_url}.  Code: #{response.code} Message: #{response.message}" }
+          false
+        end
       end
 
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)

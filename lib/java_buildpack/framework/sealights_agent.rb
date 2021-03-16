@@ -68,7 +68,7 @@ module JavaBuildpack
       def extract_zip(file, target_directory)
         with_timing "Extracting Sealights Agent to '#{target_directory}'" do
           FileUtils.mkdir_p(target_directory)
-          shell "unzip -qq #{file} -d #{target_directory} 2>&1"
+          #shell "unzip -qq #{file} -d #{target_directory} 2>&1"
         end
       end
 

@@ -68,9 +68,7 @@ module JavaBuildpack
       def extract_zip(file, target_directory)
         with_timing "Extracting Sealights Agent to '#{target_directory}'" do
           FileUtils.mkdir_p(target_directory)
-          shell "ls -l #{target_directory}"
-          #shell "unzip -qq #{file} -d #{target_directory} 2>&1"
-          shell "ls -l #{target_directory} 2>&1"
+          shell "unzip -qq #{file} -d #{target_directory} 2>&1"
         end
       end
 
@@ -138,7 +136,7 @@ module JavaBuildpack
         end
         case response
         when Net::HTTPSuccess
-          announce('Agent was downloaded successfully.')
+          announce("Agent was downloaded successfully. Body size is #{response.body} bytes.")
           open('sealights-java.zip', 'wb') do |file|
             file.write(response.body)
           end

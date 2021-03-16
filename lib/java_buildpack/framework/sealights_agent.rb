@@ -45,7 +45,7 @@ module JavaBuildpack
         announce("1")
         download_url = get_download_url
         announce("2")
-        download_uri(download_url)
+        # download_uri(download_url)
         # announce("3")
         # extract_zip('sealights-java.zip', get_agent_path)
         # announce("4")

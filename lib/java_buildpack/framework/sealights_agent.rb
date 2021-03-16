@@ -53,7 +53,7 @@ module JavaBuildpack
       end
 
       def get_download_url
-        credentials = @application.services.find_service(FILTER, TOKEN)['credentials']
+        # credentials = @application.services.find_service(FILTER, TOKEN)['credentials']
         # token = credentials[TOKEN]
         # sealights_data = token.split(/\./)[1]
         # decoded_token = Base64.decode64(sealights_data)

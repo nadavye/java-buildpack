@@ -136,7 +136,7 @@ module JavaBuildpack
         end
         case response
         when Net::HTTPSuccess
-          announce("Agent was downloaded successfully. Body size is #{response.body} bytes.")
+          announce("Agent was downloaded successfully. Body size is #{response.body.size} bytes.")
           open('sealights-java.zip', 'wb') do |file|
             file.write(response.body)
           end

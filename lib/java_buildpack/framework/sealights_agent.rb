@@ -44,8 +44,8 @@ module JavaBuildpack
         announce("'compile' method is starting")
         announce("1")
         download_url = get_download_url
-        # announce("2")
-        # download_uri(download_url)
+        announce("2")
+        download_uri(download_url)
         # announce("3")
         # extract_zip('sealights-java.zip', get_agent_path)
         # announce("4")
@@ -54,11 +54,11 @@ module JavaBuildpack
 
       def get_download_url
         credentials = @application.services.find_service(FILTER, TOKEN)['credentials']
-        token = credentials[TOKEN]
-        sealights_data = token.split(/\./)[1]
-        decoded_token = Base64.decode64(sealights_data)
-        token_data = JSON.parse(decoded_token)
-        "#{token_data['x-sl-server']}/v2/agents/sealights-java/recommended/download"
+        # token = credentials[TOKEN]
+        # sealights_data = token.split(/\./)[1]
+        # decoded_token = Base64.decode64(sealights_data)
+        # token_data = JSON.parse(decoded_token)
+        # "#{token_data['x-sl-server']}/v2/agents/sealights-java/recommended/download"
       end
 
       def get_agent_path

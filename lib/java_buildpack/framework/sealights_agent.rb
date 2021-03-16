@@ -53,12 +53,12 @@ module JavaBuildpack
       end
 
       def get_download_url
-        # credentials = @application.services.find_service(FILTER, TOKEN)['credentials']
-        # token = credentials[TOKEN]
-        # sealights_data = token.split(/\./)[1]
-        # decoded_token = Base64.decode64(sealights_data)
-        # token_data = JSON.parse(decoded_token)
-        # "#{token_data['x-sl-server']}/v2/agents/sealights-java/recommended/download"
+        credentials = @application.services.find_service(FILTER, TOKEN)['credentials']
+        token = credentials[TOKEN]
+        sealights_data = token.split(/\./)[1]
+        decoded_token = Base64.decode64(sealights_data)
+        token_data = JSON.parse(decoded_token)
+        "#{token_data['x-sl-server']}/v2/agents/sealights-java/recommended/download"
       end
 
       def get_agent_path

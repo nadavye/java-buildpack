@@ -47,8 +47,8 @@ module JavaBuildpack
         announce("2")
         download_uri(download_url)
         announce("3")
-        # extract_zip('sealights-java.zip', get_agent_path)
-        # announce("4")
+        extract_zip('sealights-java.zip', get_agent_path)
+        announce("4")
         announce("'compile' method has ended")
       end
 
@@ -75,26 +75,26 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        # credentials = @application.services.find_service(FILTER, TOKEN)['credentials']
-        # properties = {
-        #   'sl.token' => credentials[TOKEN]
-        # }
-        # properties.map { |k, v| @droplet.java_opts.add_system_property(k, v) }
-        #
-        # @logger.info { "Configuration #{@configuration}" }
-        #
-        # # try_add_system_property(TOKEN)
-        # try_add_system_property('buildSessionId')
-        # try_add_system_property('buildSessionIdFile')
-        # try_add_system_property('proxy')
-        # try_add_system_property('labId')
-        #
-        # full_path = File.join(get_agent_path, 'sl-test-listener.jar')
-        # agent_path = Pathname.new(full_path)
-        #
-        # @droplet.java_opts.add_javaagent(agent_path)
-        #
-        # announce("Agent was configured. Agent path is set to: '#{agent_path}")
+        credentials = @application.services.find_service(FILTER, TOKEN)['credentials']
+        properties = {
+          'sl.token' => credentials[TOKEN]
+        }
+        properties.map { |k, v| @droplet.java_opts.add_system_property(k, v) }
+
+        @logger.info { "Configuration #{@configuration}" }
+
+        # try_add_system_property(TOKEN)
+        try_add_system_property('buildSessionId')
+        try_add_system_property('buildSessionIdFile')
+        try_add_system_property('proxy')
+        try_add_system_property('labId')
+
+        full_path = File.join(get_agent_path, 'sl-test-listener.jar')
+        agent_path = Pathname.new(full_path)
+
+        @droplet.java_opts.add_javaagent(agent_path)
+
+        announce("Agent was configured. Agent path is set to: '#{agent_path}")
         announce("Agent was configured.")
       end
 
